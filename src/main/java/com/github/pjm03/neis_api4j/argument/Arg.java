@@ -20,6 +20,7 @@ public class Arg<T> {
      * 객체 생성자
      * @param argInfo 인자 정보를 가지고 있는 객체
      * @param value 인자 값
+     * @param <K> 인자 값 타입
      * @see ArgInfo
      * @return 선택인자 전달 시 사용하는 Arg 객체 반환
      */
