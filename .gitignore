@@ -1,5 +1,5 @@
 ### Custom
-/src/test/resources/api.key
+src/test/resources/api.key
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
