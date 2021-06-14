@@ -52,14 +52,8 @@ public class ApiTest {
         NeisAPI neisAPI = new NeisAPI(key, 1, 10, true);
         SchoolInfo schoolInfo = neisAPI.getSchoolInfo(Arg.of(SchoolInfo.OptionalArgs.SCHOOL_NAME, "금오공업고등학교")).get(0);
         List<SchoolMealInfo> schoolMealInfoList = neisAPI.getSchoolMealInfo(schoolInfo.getEducationOfficeCode(), schoolInfo.getSchoolCode(),
-                Arg.of(SchoolMealInfo.OptionalArgs.MEAL_DATE, new Date(System.currentTimeMillis()-1000*3600*24*3)));
+                Arg.of(SchoolMealInfo.OptionalArgs.MEAL_DATE, new Date()));
         assertEquals(schoolMealInfoList.size(), 3);
-    }
-
-    @Test
-    public void test() {
-        String a = "hello.hi";
-        System.out.println(a.substring(0, a.indexOf(".")));
     }
 
     @Test

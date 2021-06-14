@@ -1,5 +1,5 @@
 # NeisApi4J
-<img src="https://img.shields.io/badge/release-v1.0.0-blue" /><br />
+<img src="https://img.shields.io/badge/release-v1.0.1-blue" /><br />
 ###### **NeisApi4J**는 [나이스 Open API](https://open.neis.go.kr/portal/mainPage.do) 를 쉽게 이용할 수 있게 해주는 라이브러리입니다.
 ## 사용 가능한 API
 - [급식식단정보 API](https://open.neis.go.kr/portal/data/service/selectServicePage.do?infId=OPEN17320190722180924242823&infSeq=2)

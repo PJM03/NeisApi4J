@@ -16,11 +16,13 @@ public class MealMenuAdapter implements JsonSerializer<List<MealMenu>>, JsonDese
     public List<MealMenu> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         String data = context.deserialize(json, String.class);
         return Arrays.stream(data.split("<br/>")).map(menu -> {
-            int numberIdx = menu.indexOf(".") - 1;
-            String menuName = menu.substring(0, numberIdx);
-            Allergy[] allergies = Arrays.stream(menu.substring(numberIdx, menu.length()).split("\\."))
-                    .map(s -> Allergy.getByNum(Integer.parseInt(s))).toArray(Allergy[]::new);
-            return new MealMenu(menuName, allergies);
+            if(menu.contains(".")) {
+                int numberIdx = menu.indexOf(".") - 1;
+                String menuName = menu.substring(0, numberIdx);
+                Allergy[] allergies = Arrays.stream(menu.substring(numberIdx, menu.length()).split("\\."))
+                        .map(s -> Allergy.getByNum(Integer.parseInt(s))).toArray(Allergy[]::new);
+                return new MealMenu(menuName, allergies);
+            }else return new MealMenu(menu, new Allergy[] {});
         }).collect(Collectors.toList());
     }
 
