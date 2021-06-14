@@ -41,7 +41,7 @@ import java.util.logging.Logger;
 @Setter
 public class NeisAPI {
     private static URI neisURI;
-    public static Gson gson;
+    private static Gson gson;
     private static Logger logger;
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
@@ -65,7 +65,7 @@ public class NeisAPI {
      */
     private Integer pIndex;
     /**
-     * 페이지 당 신청 숫자
+     * 페이지 당 신청 수
      */
     private Integer pSize;
     /**
@@ -81,7 +81,13 @@ public class NeisAPI {
      * @see SchoolInfo.OptionalArgs
      * @see SchoolInfo
      * @return API 조회 결과를 {@link Gson}을 이용해 {@link SchoolInfo}객체로 매핑해 반환
-     * @throws IOException from {@link HttpClient#execute(HttpUriRequest)} and {@link EntityUtils#toString(HttpEntity)}
+     * @throws IOException from
+     * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpclient/4.5.13/org/apache/http/client/HttpClient.html#execute(org.apache.http.client.methods.HttpUriRequest)">
+     * {@link HttpClient#execute(HttpUriRequest)}</a>
+     * and
+     * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpcore/4.4.14/org/apache/http/util/EntityUtils.html#toString(org.apache.http.HttpEntity)">
+     * {@link EntityUtils#toString(HttpEntity)}
+     * </a>
      */
     public final List<SchoolInfo> getSchoolInfo(Arg... args) throws IOException {
         return sendRequest(ApiType.SCHOOL_INFO, Arrays.asList(args));
@@ -97,7 +103,13 @@ public class NeisAPI {
      * @see SchoolMealInfo.OptionalArgs
      * @see SchoolMealInfo
      * @return API 조회 결과를 {@link Gson}을 이용해 {@link SchoolMealInfo}객체로 매핑해 반환
-     * @throws IOException from {@link HttpClient#execute(HttpUriRequest)} and {@link EntityUtils#toString(HttpEntity)}
+     * @throws IOException from
+     * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpclient/4.5.13/org/apache/http/client/HttpClient.html#execute(org.apache.http.client.methods.HttpUriRequest)">
+     * {@link HttpClient#execute(HttpUriRequest)}</a>
+     * and
+     * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpcore/4.4.14/org/apache/http/util/EntityUtils.html#toString(org.apache.http.HttpEntity)">
+     * {@link EntityUtils#toString(HttpEntity)}
+     * </a>
      */
     public final List<SchoolMealInfo> getSchoolMealInfo(String educationOfficeCode, String schoolCode, Arg<?>... args) throws IOException {
         return sendRequest(ApiType.SCHOOL_MEAL_INFO, new ArrayList<>() {{
