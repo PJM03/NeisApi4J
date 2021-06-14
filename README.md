@@ -8,7 +8,7 @@
 ## 사용법
 - 라이브러리 추가방법
   - gradle/maven: 준비중
-  - [jar 다운로드](/)
+  - [jar 다운로드](https://github.com/PJM03/NeisApi4J/releases/tag/v1.0.1)
 - Java
     > ```java
     > class Example {
