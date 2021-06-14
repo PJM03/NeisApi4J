@@ -7,7 +7,18 @@
 - 지속적인 업데이트 예정
 ## 사용법
 - 라이브러리 추가방법
-  - gradle/maven: 준비중
+  - gradle
+    > ```groovy
+    > repositories {
+    >     maven {
+    >         url = "http://nexus.pjm03.xyz/public"
+    >     }
+    > }
+    > 
+    > dependencies {
+    >     implementation "com.github.pjm03:NeisApi4J:1.0.1"
+    > }
+    > ```
   - [jar 다운로드](https://github.com/PJM03/NeisApi4J/releases/tag/v1.0.1)
 - Java
     > ```java
