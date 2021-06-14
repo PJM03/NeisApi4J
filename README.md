@@ -11,7 +11,7 @@
     > ```groovy
     > repositories {
     >     maven {
-    >         url = "http://nexus.pjm03.xyz/public"
+    >         url = "http://repo.pjm03.xyz/public"
     >     }
     > }
     > 
