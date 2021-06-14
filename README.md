@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/badge/release-v1.0.0-blue" /><br />
 ###### **NeisApi4J**는 [나이스 Open API](https://open.neis.go.kr/portal/mainPage.do) 를 쉽게 이용할 수 있게 해주는 라이브러리입니다.
 ## 사용법
-- ####라이브러리 추가방법
+- 라이브러리 추가방법
   - gradle/maven: 준비중
   - [jar 다운로드](/)
 - Java
