@@ -4,8 +4,6 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class BrSplitAdapter implements JsonSerializer<List<String>>, JsonDeserializer<List<String>> {

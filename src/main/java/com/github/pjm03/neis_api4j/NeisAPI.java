@@ -1,13 +1,13 @@
 package com.github.pjm03.neis_api4j;
 
-import com.github.pjm03.neis_api4j.data.SchoolInfo;
-import com.github.pjm03.neis_api4j.data.SchoolMealInfo;
-import com.github.pjm03.neis_api4j.exception.NeisAPIException;
 import com.github.pjm03.neis_api4j.argument.ApiType;
 import com.github.pjm03.neis_api4j.argument.Arg;
 import com.github.pjm03.neis_api4j.argument.ArgInfo;
+import com.github.pjm03.neis_api4j.data.SchoolInfo;
+import com.github.pjm03.neis_api4j.data.SchoolMealInfo;
+import com.github.pjm03.neis_api4j.data.SchoolSchedule;
+import com.github.pjm03.neis_api4j.exception.NeisAPIException;
 import com.google.gson.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.http.HttpEntity;
@@ -33,10 +33,9 @@ import java.util.logging.Logger;
  * Neis-api4j (Neis Open Api for Java)
  *
  * @author Park Jung Min
- * @version 1.0.0
+ * @version 1.1.0
  */
 
-@AllArgsConstructor
 @Getter
 @Setter
 public class NeisAPI {
@@ -69,9 +68,23 @@ public class NeisAPI {
      */
     private Integer pSize;
     /**
-     * 요청 Uri 출력 여부
+     * 요청 Url 출력 여부
      */
-    private boolean showUri;
+    private boolean showUrl;
+
+    /**
+     * API 요청 객체 생성
+     * @param key 나이스 API 인증키
+     * @param pIndex 페이지 위치
+     * @param pSize 페이지 당 신청 수
+     * @param showUrl 요청 Url 출력 여부
+     */
+    public NeisAPI(String key, Integer pIndex, Integer pSize, boolean showUrl) {
+        this.key = key;
+        this.pIndex = pIndex;
+        this.pSize = pSize;
+        this.showUrl = showUrl;
+    }
 
     /**
      * <a href="https://open.neis.go.kr/portal/data/service/selectServicePage.do?infId=OPEN17020190531110010104913&infSeq=1">학교기본정보 API</a>
@@ -80,7 +93,7 @@ public class NeisAPI {
      * @see Arg#of(ArgInfo, Object)
      * @see SchoolInfo.OptionalArgs
      * @see SchoolInfo
-     * @return API 조회 결과를 {@link Gson}을 이용해 {@link SchoolInfo}객체로 매핑해 반환
+     * @return API 조회 결과를 {@link Gson}을 이용해 {@link List<SchoolInfo>}객체로 매핑해 반환
      * @throws IOException from
      * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpclient/4.5.13/org/apache/http/client/HttpClient.html#execute(org.apache.http.client.methods.HttpUriRequest)">
      * {@link HttpClient#execute(HttpUriRequest)}</a>
@@ -102,7 +115,7 @@ public class NeisAPI {
      * @see Arg#of(ArgInfo, Object)
      * @see SchoolMealInfo.OptionalArgs
      * @see SchoolMealInfo
-     * @return API 조회 결과를 {@link Gson}을 이용해 {@link SchoolMealInfo}객체로 매핑해 반환
+     * @return API 조회 결과를 {@link Gson}을 이용해 {@link List<SchoolMealInfo>}객체로 매핑해 반환
      * @throws IOException from
      * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpclient/4.5.13/org/apache/http/client/HttpClient.html#execute(org.apache.http.client.methods.HttpUriRequest)">
      * {@link HttpClient#execute(HttpUriRequest)}</a>
@@ -119,6 +132,32 @@ public class NeisAPI {
         }});
     }
 
+    /**
+     * <a href="https://open.neis.go.kr/portal/data/service/selectServicePage.do?&infId=OPEN17220190722175038389180&infSeq=2">학사일정 API</a>
+     * 를 조회하는 메서드
+     * @param educationOfficeCode 시도교육청 코드
+     * @param schoolCode 표준 학교코드
+     * @param args 신청인자(선택인자)
+     * @see Arg#of(ArgInfo, Object)
+     * @see SchoolSchedule.OptionalArgs
+     * @see SchoolSchedule
+     * @return API 조회 결과를 {@link Gson}을 이용해 {@link List<SchoolSchedule>} 객체로 매핑해 반환
+     * @throws IOException from
+     * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpclient/4.5.13/org/apache/http/client/HttpClient.html#execute(org.apache.http.client.methods.HttpUriRequest)">
+     * {@link HttpClient#execute(HttpUriRequest)}</a>
+     * and
+     * <a href="https://javadoc.io/static/org.apache.httpcomponents/httpcore/4.4.14/org/apache/http/util/EntityUtils.html#toString(org.apache.http.HttpEntity)">
+     * {@link EntityUtils#toString(HttpEntity)}
+     * </a>
+     */
+    public final List<SchoolSchedule> getSchoolSchedule(String educationOfficeCode, String schoolCode, Arg<?>... args) throws IOException {
+        return sendRequest(ApiType.SCHOOL_SCHEDULE, new ArrayList<>() {{
+            add(Arg.of(SchoolSchedule.RequireArgs.EDUCATION_OFFICE_CODE, educationOfficeCode));
+            add(Arg.of(SchoolSchedule.RequireArgs.SCHOOL_CODE, schoolCode));
+            addAll(Arrays.asList(args));
+        }});
+    }
+
     private final <T> List<T> sendRequest(ApiType<T> apiType, List<Arg<?>> args) throws IOException{
         try {
             URIBuilder uriBuilder = createURIBuilder(apiType.getPath());
@@ -126,7 +165,7 @@ public class NeisAPI {
 
             HttpClient client = HttpClientBuilder.create().build();
             URI uri = uriBuilder.build();
-            if(showUri) logger.log(Level.INFO, uri.toString());
+            if(showUrl) logger.log(Level.INFO, uri.toString());
             HttpResponse response = client.execute(new HttpGet(uri));
             String jsonString = EntityUtils.toString(response.getEntity());
 

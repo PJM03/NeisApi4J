@@ -13,4 +13,8 @@ public class NeisAPIException extends RuntimeException{
     public NeisAPIException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    public NeisAPIException(String message) {
+        super(message);
+    }
 }

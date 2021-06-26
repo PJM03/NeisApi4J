@@ -1,10 +1,8 @@
 package com.github.pjm03.neis_api4j.adapter;
 
-import com.github.pjm03.neis_api4j.data.SchoolMealInfo;
 import com.github.pjm03.neis_api4j.data.SchoolMealInfo.Allergy;
 import com.github.pjm03.neis_api4j.data.SchoolMealInfo.MealMenu;
 import com.google.gson.*;
-import org.apache.commons.codec.binary.StringUtils;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;

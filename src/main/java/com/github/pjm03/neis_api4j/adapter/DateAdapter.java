@@ -21,6 +21,9 @@ public class DateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date>
 
     @Override
     public JsonElement serialize(Date date, Type type, JsonSerializationContext context) {
-        return context.serialize(NeisAPI.DATE_FORMAT.format(date), String.class);
+        JsonElement json = context.serialize(NeisAPI.DATE_FORMAT.format(date), String.class);
+        JsonObject ob = json.getAsJsonObject();
+        ob.addProperty("test", "hi");
+        return ob;
     }
 }

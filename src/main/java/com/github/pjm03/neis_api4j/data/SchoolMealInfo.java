@@ -5,8 +5,6 @@ import com.github.pjm03.neis_api4j.adapter.BrSplitAdapter;
 import com.github.pjm03.neis_api4j.adapter.DateAdapter;
 import com.github.pjm03.neis_api4j.adapter.MealMenuAdapter;
 import com.github.pjm03.neis_api4j.argument.ArgInfo;
-import com.google.common.base.Enums;
-import com.google.common.collect.Streams;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
@@ -19,7 +17,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * <a href="https://open.neis.go.kr/portal/data/service/selectServicePage.do?infId=OPEN17320190722180924242823&infSeq=2">급식식단정보 API</a>
+ * 의 결과값을 담은 클래스
+ *
+ * @author Park Jung Min
+ */
 @ToString
+@Getter
 public class SchoolMealInfo {
 
     /**
@@ -138,7 +143,7 @@ public class SchoolMealInfo {
         int num;
 
         public static final Allergy getByNum(int num) {
-            return values()[num-1];
+            return values()[num - 1];
         }
     }
 
